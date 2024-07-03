@@ -15,7 +15,7 @@ Clone the code via SSH
 Or clone it via NPM
 
 ```bash
-  npm install -g neoCK-React-CLI
+  npm install -g @julioneock/react-cli
 ```
 
 ## Usage/Examples
