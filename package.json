@@ -1,6 +1,6 @@
 {
   "name": "@julioneock/react-cli",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "type": "module",
   "description": "A CLI for generate components and other stuf in neoCK projects",
   "main": "index.js",
