@@ -1,14 +1,18 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "./formatUtils.js";
+import { formatServiceName } from "../utils/formatUtils";
 
-export function generateYupSchema(name) {
+export function generateYupSchema(name: string) {
   const formattedName = formatServiceName(name);
 
   const upperCase =
     formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
 
-  const schemaDir = path.join(process.cwd(), "src");
+  let schemaDir = process.cwd();
+
+  if (!schemaDir.includes(path.join("src"))) {
+    schemaDir = path.join(schemaDir, "src");
+  }
 
   const yupSchemaTemplate = `import { object, InferType } from "yup";
 

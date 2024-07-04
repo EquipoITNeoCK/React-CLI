@@ -1,4 +1,4 @@
-function formatComponentName(name) {
+function formatComponentName(name: string) {
   let formattedString = name
     .toLowerCase()
     .replace(/[_-\s]+(\w|$)/g, function (_match, nextChar) {
@@ -12,7 +12,7 @@ function formatComponentName(name) {
   return formattedString;
 }
 
-function formatServiceName(name) {
+function formatServiceName(name: string) {
   let formattedString = name
     .toLowerCase()
     .replace(/[_-\s]+(\w|$)/g, function (_match, nextChar) {
@@ -25,7 +25,7 @@ function formatServiceName(name) {
   return formattedString;
 }
 
-function formatDirectoryName(name) {
+function formatDirectoryName(name: string) {
   let formattedString = name.toLowerCase().replace(/[\W_]/g, "-");
 
   formattedString =

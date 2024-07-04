@@ -1,11 +1,15 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "./formatUtils.js";
+import { formatServiceName } from "../utils/formatUtils";
 
-export function generateZustandStore(name) {
+export function generateZustandStore(name: string) {
   const formattedName = formatServiceName(name);
 
-  const zustandStoreDir = path.join(process.cwd(), "src");
+  let zustandStoreDir = process.cwd();
+
+  if (!zustandStoreDir.includes(path.join("src"))) {
+    zustandStoreDir = path.join(zustandStoreDir, "src");
+  }
 
   const upperCase =
     formattedName.charAt(0).toUpperCase() + formattedName.slice(1);

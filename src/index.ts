@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-
-import { generateComponent } from "./generateComponent.js";
-import { generateService } from "./generateService.js";
-import { generateHook } from "./generateHook.js";
-import { generateInterface } from "./generateInterface.js";
-import { generateZustandStore } from "./generateZustandStore.js";
-import { generateYupSchema } from "./generateYupSchema.js";
+import { generateComponent } from "./commands/generateComponent";
+import { generateHook } from "./commands/generateHook";
+import { generateInterface } from "./commands/generateInterface";
+import { generateService } from "./commands/generateService";
+import { generateYupSchema } from "./commands/generateYupSchema";
+import { generateZustandStore } from "./commands/generateZustandStore";
 
 program
   .command("component <component_name>")

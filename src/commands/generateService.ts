@@ -1,12 +1,17 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "./formatUtils.js";
+import { formatServiceName } from "../utils/formatUtils";
 
-export function generateService(name) {
+export function generateService(name: string) {
   const formattedName = formatServiceName(name);
   const upperCase =
     formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
-  const serviceDir = path.join(process.cwd(), "src");
+
+  let serviceDir = process.cwd();
+
+  if (!serviceDir.includes(path.join("src"))) {
+    serviceDir = path.join(serviceDir, "src");
+  }
 
   const serviceTemplate = `
 class ${upperCase}Service {}

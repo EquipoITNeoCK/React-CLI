@@ -1,11 +1,15 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatComponentName, formatDirectoryName } from "./formatUtils.js";
+import { formatComponentName, formatDirectoryName } from "../utils/formatUtils";
 
-export function generateComponent(name) {
+export function generateComponent(name: string) {
   const formattedName = formatComponentName(name);
   const formattedDir = formatDirectoryName(name);
-  const componentDir = path.join(process.cwd(), "src", formattedDir);
+  let componentDir = path.join(process.cwd(), formattedDir);
+
+  if (!process.cwd().includes(path.join("src"))) {
+    componentDir = path.join(process.cwd(), "src", formattedDir);
+  }
 
   fs.ensureDirSync(componentDir);
 
@@ -13,7 +17,7 @@ export function generateComponent(name) {
   generateComponentStyles(formattedName, componentDir);
 }
 
-function generateComponentTsx(componentName, componentDir) {
+function generateComponentTsx(componentName: string, componentDir: string) {
   const componentTsx = `import {} from './${componentName}.styles';
 export default function ${componentName}() {
   return (
@@ -27,7 +31,7 @@ export default function ${componentName}() {
   );
 }
 
-function generateComponentStyles(componentName, componentDir) {
+function generateComponentStyles(componentName: string, componentDir: string) {
   const componentStyles = `import {styled} from '@mui/material';`;
 
   fs.writeFileSync(
