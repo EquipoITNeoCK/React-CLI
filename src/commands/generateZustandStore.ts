@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "../utils/formatUtils";
+import { formatServiceName } from "../utils/formatUtils.js";
+import consoleCreated from "../utils/console-created.js";
 
 export function generateZustandStore(name: string) {
   const formattedName = formatServiceName(name);
@@ -24,4 +25,6 @@ export const ${formattedName}Store = create<${upperCase}>((set) => ({}));`;
     path.join(zustandStoreDir, `${formattedName}.store.ts`),
     zustandStoreTemplate
   );
+
+  consoleCreated(`${formattedName}.store.ts`);
 }

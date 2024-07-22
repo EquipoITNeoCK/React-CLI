@@ -1,6 +1,10 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatComponentName, formatDirectoryName } from "../utils/formatUtils";
+import {
+  formatComponentName,
+  formatDirectoryName,
+} from "../utils/formatUtils.js";
+import consoleCreated from "../utils/console-created.js";
 
 export function generateComponent(name: string) {
   const formattedName = formatComponentName(name);
@@ -29,6 +33,7 @@ export default function ${componentName}() {
     path.join(componentDir, `${componentName}.tsx`),
     componentTsx
   );
+  consoleCreated(`${componentName}.tsx`);
 }
 
 function generateComponentStyles(componentName: string, componentDir: string) {
@@ -38,4 +43,6 @@ function generateComponentStyles(componentName: string, componentDir: string) {
     path.join(componentDir, `${componentName}.styles.ts`),
     componentStyles
   );
+
+  consoleCreated(`${componentName}.styles.ts`);
 }

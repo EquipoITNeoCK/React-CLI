@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "../utils/formatUtils";
+import { formatServiceName } from "../utils/formatUtils.js";
+import consoleCreated from "../utils/console-created.js";
 
 export function generateHook(name: string) {
   const formattedName = formatServiceName(name);
@@ -22,4 +23,6 @@ export function generateHook(name: string) {
     path.join(hookDir, `${formattedName}.hook.ts`),
     hookTemplate
   );
+
+  consoleCreated(`${formattedName}.hook.ts`);
 }

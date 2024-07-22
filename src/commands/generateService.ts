@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "../utils/formatUtils";
+import { formatServiceName } from "../utils/formatUtils.js";
+import consoleCreated from "../utils/console-created.js";
 
 export function generateService(name: string) {
   const formattedName = formatServiceName(name);
@@ -23,4 +24,6 @@ export default ${upperCase}Service;
     path.join(serviceDir, `${formattedName}.service.ts`),
     serviceTemplate
   );
+
+  consoleCreated(`${formattedName}.service.ts`);
 }
