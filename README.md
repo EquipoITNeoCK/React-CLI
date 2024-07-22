@@ -23,7 +23,7 @@ Or clone it via NPM
 To use this CLI you should write in console the next:
 
 ```bash
-  re option <file_name>
+  re generate option <file_name> or re g option <file_name>
 ```
 
 <b>OPTIONS</b>
@@ -35,12 +35,13 @@ To use this CLI you should write in console the next:
   - interface or i if you want an interface.
   - zustand or z if is a zustand store file.
   - schema o sc if yup schema is required.
+  - environments o envs to create environments folder and files
 ```
 
 An example here
 
 ```bash
-  re component login
+  re generate component login
 ```
 
 <b>OR</b>
@@ -48,5 +49,5 @@ An example here
 Includes "" if your file to create has some spaces.
 
 ```bash
-  re c "component with spaces"
+  re g c "component with spaces"
 ```
