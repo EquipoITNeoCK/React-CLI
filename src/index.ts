@@ -1,53 +1,63 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-import { generateComponent } from "./commands/generateComponent";
-import { generateHook } from "./commands/generateHook";
-import { generateInterface } from "./commands/generateInterface";
-import { generateService } from "./commands/generateService";
-import { generateYupSchema } from "./commands/generateYupSchema";
-import { generateZustandStore } from "./commands/generateZustandStore";
+import { generateComponent } from "./commands/generateComponent.js";
+import { generateHook } from "./commands/generateHook.js";
+import { generateInterface } from "./commands/generateInterface.js";
+import { generateService } from "./commands/generateService.js";
+import { generateYupSchema } from "./commands/generateYupSchema.js";
+import { generateZustandStore } from "./commands/generateZustandStore.js";
+import { generateEnvironments } from "./commands/generateEnvironments.js";
 
-program
+const generate = program.command("generate").alias("g");
+
+generate
   .command("component <component_name>")
   .alias("c")
   .action((componentName) => {
     generateComponent(componentName);
   });
 
-program
+generate
   .command("service <service_name>")
   .alias("s")
   .action((serviceName) => {
     generateService(serviceName);
   });
 
-program
+generate
   .command("hook <hook_name>")
   .alias("h")
   .action((hookName) => {
     generateHook(hookName);
   });
 
-program
+generate
   .command("interface <interface_name>")
   .alias("i")
   .action((interfaceName) => {
     generateInterface(interfaceName);
   });
 
-program
+generate
   .command("zustand <zustand_store_name>")
   .alias("z")
   .action((zustandStoreName) => {
     generateZustandStore(zustandStoreName);
   });
 
-program
+generate
   .command("schema <yup_schema_name>")
   .alias("sc")
   .action((yupSchemaName) => {
     generateYupSchema(yupSchemaName);
+  });
+
+generate
+  .command("environments")
+  .alias("envs")
+  .action(() => {
+    generateEnvironments();
   });
 
 program.parse(process.argv);
