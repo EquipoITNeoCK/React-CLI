@@ -1,13 +1,14 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "../utils/formatUtils.js";
 import consoleCreated from "../utils/console-created.js";
 
 export function generateInterface(name: string) {
-  const formattedName = formatServiceName(name);
+  const formattedName = name.toLowerCase().replace(/[\W_]/g, "-");
 
-  const upperCase =
-    formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+  const upperCase = formattedName
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join("");
 
   let interfaceDir = process.cwd();
 
