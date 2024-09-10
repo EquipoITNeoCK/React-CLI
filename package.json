@@ -1,6 +1,6 @@
 {
   "name": "@julioneock/react-cli",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "type": "module",
   "description": "A CLI for generate components and other stuf in neoCK projects",
   "main": "index.js",
@@ -16,6 +16,7 @@
   "author": "Julio Macias (julioneock)",
   "license": "ISC",
   "dependencies": {
+    "@inquirer/prompts": "^5.4.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.14.9",
     "commander": "^12.1.0",
