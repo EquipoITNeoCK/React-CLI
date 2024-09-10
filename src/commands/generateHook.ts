@@ -1,13 +1,13 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "../utils/formatUtils.js";
 import consoleCreated from "../utils/console-created.js";
+import consoleError from "../utils/console-error.js";
 
 export function generateHook(name: string) {
-  const formattedName = formatServiceName(name);
-
-  const upperCase =
-    formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+  if (!name.toLowerCase().includes("use")) {
+    consoleError(`El nombre del hook debe comenzar por 'use'`);
+    return;
+  }
 
   let hookDir = process.cwd();
 
@@ -15,14 +15,10 @@ export function generateHook(name: string) {
     hookDir = path.join(hookDir, "src");
   }
 
-  const hookTemplate = `export default function use${upperCase}() {
-};
+  const hookTemplate = `export default function ${name}() {};
 `;
 
-  fs.writeFileSync(
-    path.join(hookDir, `${formattedName}.hook.ts`),
-    hookTemplate
-  );
+  fs.writeFileSync(path.join(hookDir, `${name}.hook.ts`), hookTemplate);
 
-  consoleCreated(`${formattedName}.hook.ts`);
+  consoleCreated(`${name}.hook.ts`);
 }
