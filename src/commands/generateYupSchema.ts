@@ -1,13 +1,23 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "../utils/formatUtils.js";
 import consoleCreated from "../utils/console-created.js";
 
 export function generateYupSchema(name: string) {
-  const formattedName = formatServiceName(name);
+  const formattedName = name.toLowerCase().replace(/[\W_]/g, "-");
 
-  const upperCase =
-    formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+  const upperCase = formattedName
+    .split("-")
+    .map((word, index) =>
+      index === 0
+        ? word.toLowerCase()
+        : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    )
+    .join("");
+
+  const upperCaseWhole = formattedName
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join("");
 
   let schemaDir = process.cwd();
 
@@ -17,9 +27,9 @@ export function generateYupSchema(name: string) {
 
   const yupSchemaTemplate = `import { object, InferType } from "yup";
 
-export const ${formattedName}Schema = object({});
+export const ${upperCase}Schema = object({});
 
-export type ${upperCase} = InferType<typeof ${formattedName}Schema>;
+export type ${upperCaseWhole} = InferType<typeof ${upperCase}Schema>;
 `;
 
   fs.writeFileSync(
