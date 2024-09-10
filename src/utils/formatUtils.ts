@@ -34,4 +34,13 @@ function formatDirectoryName(name: string) {
   return formattedString;
 }
 
-export { formatComponentName, formatServiceName, formatDirectoryName };
+function formatFileName(name: string) {
+  return name.toLowerCase().replace(/[\W_]/g, "-");
+}
+
+export {
+  formatComponentName,
+  formatServiceName,
+  formatDirectoryName,
+  formatFileName,
+};
