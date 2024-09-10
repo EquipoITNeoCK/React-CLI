@@ -1,30 +1,33 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "../utils/formatUtils.js";
-import consoleCreated from "../utils/console-created.js";
 
-export function generateZustandStore(name: string) {
-  const formattedName = formatServiceName(name);
+export async function generateZustandStore() {
+  let srcDir = path.join(process.cwd());
 
-  let zustandStoreDir = process.cwd();
-
-  if (!zustandStoreDir.includes(path.join("src"))) {
-    zustandStoreDir = path.join(zustandStoreDir, "src");
+  if (!process.cwd().includes(path.join("src"))) {
+    srcDir = path.join(process.cwd(), "src");
   }
 
-  const upperCase =
-    formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+  const zustandDir = path.join(srcDir, "zustand");
+  const slicesDir = path.join(zustandDir, "slices");
+  const storeFile = path.join(zustandDir, "app.store.ts");
 
-  const zustandStoreTemplate = `import { create } from "zustand";
+  if (!fs.existsSync(zustandDir)) {
+    fs.mkdirSync(zustandDir);
+  }
 
-interface ${upperCase} {}
+  if (!fs.existsSync(slicesDir)) {
+    fs.mkdirSync(slicesDir);
+  }
 
-export const ${formattedName}Store = create<${upperCase}>((set) => ({}));`;
+  const storeTemplate = `import { create } from "zustand";
 
-  fs.writeFileSync(
-    path.join(zustandStoreDir, `${formattedName}.store.ts`),
-    zustandStoreTemplate
-  );
+type AppStore = {};
 
-  consoleCreated(`${formattedName}.store.ts`);
+export const useAppStore = create<AppStore>((...a) => ({}));
+  `;
+
+  if (!fs.existsSync(storeFile)) {
+    fs.writeFileSync(storeFile, storeTemplate);
+  }
 }
