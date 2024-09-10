@@ -1,12 +1,14 @@
 import fs from "fs-extra";
 import path from "path";
-import { formatServiceName } from "../utils/formatUtils.js";
 import consoleCreated from "../utils/console-created.js";
 
 export function generateService(name: string) {
-  const formattedName = formatServiceName(name);
-  const upperCase =
-    formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+  const formattedName = name.toLowerCase().replace(/[\W_]/g, "-");
+
+  const upperCase = formattedName
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join("");
 
   let serviceDir = process.cwd();
 
@@ -14,8 +16,7 @@ export function generateService(name: string) {
     serviceDir = path.join(serviceDir, "src");
   }
 
-  const serviceTemplate = `
-class ${upperCase}Service {}
+  const serviceTemplate = `class ${upperCase}Service {}
 
 export default ${upperCase}Service;
 `;
