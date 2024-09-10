@@ -8,6 +8,7 @@ import { generateService } from "./commands/generateService.js";
 import { generateYupSchema } from "./commands/generateYupSchema.js";
 import { generateZustandStore } from "./commands/generateZustandStore.js";
 import { generateEnvironments } from "./commands/generateEnvironments.js";
+import { generateZustandSlice } from "./commands/generateZustandSlice.js";
 
 const generate = program.command("generate").alias("g");
 
@@ -40,10 +41,17 @@ generate
   });
 
 generate
-  .command("zustand <zustand_store_name>")
+  .command("zustand")
   .alias("z")
-  .action((zustandStoreName) => {
-    generateZustandStore(zustandStoreName);
+  .action(() => {
+    generateZustandStore();
+  });
+
+generate
+  .command("slice <slice_name>")
+  .alias("sl")
+  .action((sliceName) => {
+    generateZustandSlice(sliceName);
   });
 
 generate
